@@ -37,9 +37,7 @@ class ProduectController extends Controller
      */
     public function store(Request $request)
     {
-        $storeData=Produect::create($this->validateRequest());
-        // dd($storeData);
-        $this->storeImageUpload($storeData);
+        $this->storeImageUpload(Produect::create($this->validateRequest()));
 
         return redirect('/product');
     }
@@ -47,11 +45,11 @@ class ProduectController extends Controller
     public function statusChange(Request $request, Produect $product)
     {
         $change = Produect::find($product->id);
-        if($request->check == 1){
+        if ($request->check == 1) {
             $change->status = 0;
             $change->save();
             $message = "Your Product Visiblity off";
-        }else{
+        } else {
             $change->status = 1;
             $change->save();
             $message = "Your Product Visiblity on";
@@ -123,41 +121,16 @@ class ProduectController extends Controller
     }
     private function storeImageUpload($image)
     {
-        if(request()->hasfile('pic1')){
-            $file = request()->file('pic1');
-            $extension = $file->getClientOriginalExtension();
-            $filename = "/images/StudentImage/1".time().'.'.$extension;
-            $file->move(public_path("../public/images/StudentImage"), $filename);
-            $image->pic1 = $filename;
-            $image = Image::make(public_path($image->pic1))->resize(400,400);   // returns Intervention\Image\Image
-            $image->save();
-         }
-        // if(request()->hasfile('pic2')){
-        //     $file = request()->file('pic2');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = "/images/StudentImage/2".time().'.'.$extension;
-        //     $file->move(public_path("../public/images/StudentImage"), $filename);
-        //     $image->pic2 = $filename;
-        //     $image = Image::make(public_path($image->pic2))->resize(400,400);   // returns Intervention\Image\Image
-        //     $image->save();
-        // }
-        // if(request()->hasfile('pic3')){
-        //     $file = request()->file('pic3');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = "/images/StudentImage/3".time().'.'.$extension;
-        //     $file->move(public_path("../public/images/StudentImage"), $filename);
-        //     $image->pic3 = $filename;
-        //     $image = Image::make(public_path($image->pic3))->resize(400,400);   // returns Intervention\Image\Image
-        //     $image->save();
-        // }
-        // if(request()->hasfile('pic4')){
-        //     $file = request()->file('pic4');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = "/images/StudentImage/4".time().'.'.$extension;
-        //     $file->move(public_path("../public/images/StudentImage"), $filename);
-        //     $image->pic4 = $filename;
-        //     $image = Image::make(public_path($image->pic4))->resize(400,400);   // returns Intervention\Image\Image
-        //     $image->save();
-        // }
+        for ($i = 1; $i < 5; $i++) {
+            $path   = request()->file("pic{$i}");
+            $resize = Image::make($path)->resize(1500, 850);
+            $hash = md5(time());
+            $path = "images/productimage/{$hash}.{$path->getClientOriginalExtension()}";
+            $resize->save(public_path($path), 100);
+            $url = "/" . $path;
+            $image->update([
+                "pic{$i}" => $path,
+            ]);
+        }
     }
 }

@@ -15,7 +15,21 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
     <script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
-
+    <style>
+        .cartInput {
+            width: 50px !important;
+            margin: 5px;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            height: calc(1.6em 0.75rem 2px);
+            '
+padding: 0.375rem 0.75rem;
+        }
+    </style>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -159,40 +173,7 @@
             <div class="row text-center">Powerd By ITPlus || Copyright, {{date('Y')}} </div>
         </div>
     </footer>
-    <script>
-
-        $(function () {
-
-            $(".buttonAdd").append('<div class="dec button btn btn-secondary" id="buttonless">-</div><input type="text"' +
-                "style='width:50px!important; margin: 5px;" +
-                "background-color: #fff;" +
-                "background-clip: padding-box;" +
-                "border: 1px solid #ced4da; padding:10px;" +
-                "border-radius: 0.25rem;" +
-                "transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;" +
-                "height: calc(1.6em + 0.75rem + 2px);'" +
-                '"padding: 0.375rem 0.75rem;" name="cart" id="cart" value="1"><div class="inc button btn btn-secondary">+</div>');
-            $(".button").on("click", function () {
-
-                var $button = $(this);
-                var oldValue = $button.parent().find("input").val();
-
-                if ($button.text() == "+") {
-                    var newVal = parseFloat(oldValue) + 1;
-                } else {
-                    // Don't allow decrementing below zero
-                    if (oldValue > 0) {
-                        var newVal = parseFloat(oldValue) - 1;
-                    } else {
-                        newVal = 0;
-                    }
-                }
-
-                $button.parent().find("input").val(newVal);
-
-            });
-        });
-    </script>
+    <script src="{{asset('js/custom.js')}}"></script>
 </body>
 
 </html>

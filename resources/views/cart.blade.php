@@ -6,6 +6,7 @@
         <h4>{{$product->name}}</h4>
         <h6>${{$product->price}}</h6>
             <form action="/cart" method="post">
+                @csrf
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Customer Name" value="{{Auth::User()->name}}">
@@ -21,7 +22,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                    <div class="buttonAdd"></div>
+                    <div class="buttonAdd">
+                        <div class="dec button btn btn-secondary" id="buttonless">-</div>
+                        <input type="text"
+                            class="cartInput"
+                            name="cart" id="cart" value="1"
+                        >
+                        <div class="inc button btn btn-secondary" id="buttonincrease">+</div>
+                    </div>
                     </div>
                     <div class="col-md-12">
                       <button class="btn btn-info" type="submit">Add to bag</button>
@@ -40,13 +48,5 @@
           </div>  
     </div>    
 </div>
-<script>
-$(document).ready(function(){
-    alert('cart');
-    $("#buttonless").click(function(){
-    var cart = $("#cart").val();
-  });
-  
-});
-</script>
+
 @endsection

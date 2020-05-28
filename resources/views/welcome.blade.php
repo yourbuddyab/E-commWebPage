@@ -47,26 +47,17 @@
                     <form action="/cart/check" method="POST">
                         @csrf
                         <input type="text" hidden name="product_id" value="{{$item->id}}">
-                        {{-- <div class="select-color">
-            <span>Select Color</span>
-            <select class="color">
-              <option>Cognac</option>
-              <option>Black</option>
-            </select>
-          </div>
-          <div class="select-size">
-            <span>Size</span>
-            <select class="size">
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-            </select>
-          </div>  --}}
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="buttonAdd {{$item->quantity <= 0 ? "d-none" : "" }}"></div>
                             </div>
                             <div class="col-md-12">
+                                <div class="d-block">
+                                    <div class="dec button btn btn-secondary" id="buttonless">-</div>
+                                    <input type="text" class="cartInput" name="cart" id="cart" value="1">
+                                    <div class="inc button btn btn-secondary" id="buttonincrease">+</div>
+                                </div>
                                 <button class="btn btn-info" {{$item->quantity <= 0 ? "disabled" : "" }}
                                     type="submit">Add to bag</button>
                             </div>
@@ -74,43 +65,9 @@
                         <!--BUTTON-->
                     </form>
                 </div>
-                {{-- <div class="block-footer clearfix">
-        <div class="block-links">
-          <div class="send">
-            <img src="http://www.free-icons-download.net/images/share-icon-20724.png">
-            <span>Send to a friend</span>
-          </div>
-          <div class="wishlist">
-            <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/23243-200.png">
-            <span>Save for later</span>
-          </div>
-        </div>
-        <!--SOCIAL-->
-        <div class="social">
-          <a href="#"><img src="http://www.iconsdb.com/icons/download/black/facebook-7-256.gif"></a>
-          <a href="#"><img src="http://www.iconsdb.com/icons/download/black/twitter-4-512.gif"></a>
-          <a href="#"><img src="http://www.iconsdb.com/icons/download/black/google-plus-4-512.jpg"></a>
-          <a href="#"><img src="http://www.nataliemorgan.co.nz/images/Pinterest.png"></a>
-        </div>
-      </div> --}}
+
         </div>
         @endforeach
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $(".click-pic").click(function () {
-            $(".changepic").attr("src", $('img.click-pic').attr('src'));
-        });
-        $(".click-pic2").click(function () {
-            $(".changepic").attr("src", $('img.click-pic2').attr('src'));
-        });
-        $(".click-pic3").click(function () {
-            $(".changepic").attr("src", $('img.click-pic3').attr('src'));
-        });
-        $(".click-pic4").click(function () {
-            $(".changepic").attr("src", $('img.click-pic4').attr('src'));
-        });
-    });
-</script>
 @endsection

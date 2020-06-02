@@ -15,6 +15,13 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('product_id');
+            $table->string('quantity');
+            $table->unsignedInteger('customer_id')->nullable();
+            $table->unsignedInteger('customeraddress')->nullable();
+            $table->unsignedInteger('customername')->nullable();
+            $table->string('price')->nullable();
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

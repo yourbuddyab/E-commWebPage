@@ -26,4 +26,4 @@ Route::resource('product', 'ProduectController');
 Route::patch('status/{product}', 'ProduectController@statusChange');
 Route::resource('detail', 'BasicDetialController');
 Route::resource('cart', 'CartController');
-Route::post('/cart/check', 'CartController@check');
+// Route::post('/cart/check', 'CartController@check');

@@ -31,10 +31,10 @@ class CartController extends Controller
 
     public function check(Request $request)
     {
-        $product = Produect::where('id', $request->product_id)->first();
-        $cart = $request->cart;
-        // Session::put('data', $data);
-        return view('/cart', compact('product', 'cart'));
+        // $product = Produect::where('id', $request->product_id)->first();
+        // $cart = $request->cart;
+        // // Session::put('data', $data);
+       
     }
     /**
      * Store a newly created resource in storage.
@@ -44,7 +44,12 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $url = "https://www.instamojo.com/api/1.1/payment-requests/";
+        Cart::create($request->validate([
+            'product_id' => 'required',
+            'quantity' => 'required',
+        ]));
+        $redirect_id = Cart::latest()->first()->id;
+        return redirect('/cart/'.$redirect_id.'/edit');
     }
 
     /**
@@ -55,7 +60,7 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        //
+        
     }
 
     /**
@@ -66,7 +71,8 @@ class CartController extends Controller
      */
     public function edit(Cart $cart)
     {
-        //
+        $product = Produect::where('id', $cart->product_id)->first();
+        return view('/cart', compact('cart', 'product'));
     }
 
     /**

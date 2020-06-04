@@ -11,7 +11,8 @@
                     window.location.href = "/login";
                 </script>
             @else
-            <form action="/pgRedirect.php" method="post">
+            <form action="{{route('payment')}}" method="post">
+                @csrf
                 <input type="hidden" id="CUST_ID" name="CUST_ID" value="CUST001">
                 <input type="hidden" id="INDUSTRY_TYPE_ID" name="INDUSTRY_TYPE_ID" value="Retail">
                 <input type="hidden"  id="CHANNEL_ID" name="CHANNEL_ID" value="WEB">
@@ -20,8 +21,20 @@
                     <input type="text" class="form-control" id="ORDER_ID" name="ORDER_ID" size="20" maxlength="20" autocomplete="off" tabindex="1" value="<?php echo  "ORDER" . rand(10000,99999999)?>">
                 </div>
                 <div class="form-group">
-                    <label>Amount to Pay:</label>
-                    <input type="text" class="form-control" id="TXN_AMOUNT" name="TXN_AMOUNT" autocomplete="off" tabindex="5" value="20">
+                    <label>Amount to Pay: 20</label>
+                    <input type="hidden" name="price" value="20">
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <label class="form-check-label pr-4">
+                        <input type="radio" class="form-check-input" name="payment_type" id="payment_type" value="cod">
+                        COD
+                      </label>
+                        <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="payment_type" id="payment_type" value="paytm">
+                        Paytm
+                      </label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <input type="submit" name="submit" value="CheckOut" class="btn btn-success btn-lg" style="background-color:#0000FF; margin-left: 37%;">

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,15 @@ Route::resource('product', 'ProduectController');
 Route::patch('status/{product}', 'ProduectController@statusChange');
 Route::resource('detail', 'BasicDetialController');
 Route::resource('cart', 'CartController');
+
+
 // Route::post('/cart/check', 'CartController@check');
+
+
+/**
+ * GET route for payments
+ * Post route for response of payemnt from paytm
+ */
+
+Route::post('payment', 'PaytmController@index')->name('payment');
+Route::post('paymentstatus', 'PaytmController@status')->name('status');

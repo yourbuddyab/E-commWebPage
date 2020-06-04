@@ -124,13 +124,13 @@ class ProduectController extends Controller
         for ($i = 1; $i < 5; $i++) {
             $path   = request()->file("pic{$i}");
             $resize = Image::make($path)->resize(1500, 850);
-            $hash = md5(time());
+            $hash = md5(time().$i);
             $path = "images/productimage/{$hash}.{$path->getClientOriginalExtension()}";
             $resize->save(public_path($path), 100);
-            $url = "/" . $path;
             $image->update([
                 "pic{$i}" => $path,
             ]);
+            echo "pic{$i} => {$path} ";
         }
     }
 }
